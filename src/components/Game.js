@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Pusher from 'pusher-js';
 import axios from 'axios';
 import { Container, Header, Button, Form, Segment  } from 'semantic-ui-react'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 class Game extends Component {
   state = {
@@ -73,24 +74,32 @@ class Game extends Component {
   scrollToBottom() {
     this.messagesEnd.scrollIntoView({ behavior: "smooth" });
   }
-  render() {
 
+  deleteToken = () => {
+    window.localStorage.removeItem('token');
+    this.props.toggle();
+    console.log(this.props)
+  }
+  render() {
     return(
       <>
         <Container text>
           <Header as='h2'>This is a game</Header>
-            <div>
+            <TransitionGroup>
               {this.state.gametext.map((lineOfText, index) => {
                 return (
-                  <ul key={index}>
-                    <li>{lineOfText}</li>
-                  </ul>
+                  <CSSTransition key={index} classNames="fade" timeout={500}>
+                    <ul>
+                      <li>{lineOfText}</li>
+                    </ul>
+                  </CSSTransition>
                 )
               })}
-              <div style={{ float:"left", clear: "both" }}
-                ref={(el) => { this.messagesEnd = el; }}>
-              </div>
+            </TransitionGroup>
+            <div style={{ float:"left", clear: "both" }}
+              ref={(el) => { this.messagesEnd = el; }}>
             </div>
+            
           <Segment inverted>
             <Form inverted>
               <Form.Group widths='equal'>
@@ -102,6 +111,7 @@ class Game extends Component {
                   onChange={this.handleInput}/>
               </Form.Group>
               <Button type='submit' onClick={this.submit}>Submit</Button>
+              <Button negative={true} type='submit' onClick={this.deleteToken}>Signout</Button>
             </Form>
           </Segment>
         </Container>

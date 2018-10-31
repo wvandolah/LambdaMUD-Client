@@ -4,8 +4,8 @@ import axios from 'axios';
 
 class Login extends Component {
   state = {
-    username: "testuser2",
-    password: "testpassword",
+    username: "",
+    password: "",
     password2: ""
   }
   handleInput = e => {
