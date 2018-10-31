@@ -29,11 +29,8 @@ class Game extends Component {
       cluster: 'us2',
       encrypted: true
     });
-    const test = `p-channel-${this.state.uuid}`
-    console.log(test)
     const channel = pusher.subscribe(`p-channel-${this.state.uuid}`)
     channel.bind('broadcast', data => {
-      console.log(data)
       this.setState({ gametext: [...this.state.gametext, data.message]})
     })
   }
@@ -44,7 +41,6 @@ class Game extends Component {
 
   submit = async e => {
     e.preventDefault();
-    console.log(this.state.input.length)
     const token = window.localStorage.getItem('token')
     const headers = { headers: { Authorization: `Token ${token}` }}
     try{
@@ -58,7 +54,6 @@ class Game extends Component {
       }else{
         const words = {message: this.state.input}
         const response = await axios.post(process.env.REACT_APP_BACKEND + 'adv/say/', words, headers)
-        console.log(response)
         this.setState({ 
           gametext: [...this.state.gametext, response.data.response],
           input: ''
@@ -78,7 +73,6 @@ class Game extends Component {
   deleteToken = () => {
     window.localStorage.removeItem('token');
     this.props.toggle();
-    console.log(this.props)
   }
   render() {
     return(

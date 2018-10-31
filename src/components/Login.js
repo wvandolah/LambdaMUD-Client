@@ -13,11 +13,9 @@ class Login extends Component {
   }
   login = e => {
     e.preventDefault();
-    console.log(e)
     const userCreds = {username: this.state.username, password: this.state.password}
     axios.post('https://mysterious-brushlands-82205.herokuapp.com/api/login/', userCreds)
       .then(response => {
-        console.log(response)
         window.localStorage.setItem('token', response.data.key)
         this.props.toggle()
       })
@@ -28,11 +26,9 @@ class Login extends Component {
   }
   register = e => {
     e.preventDefault();
-    console.log(e)
     const userCreds = {username: this.state.username, password1: this.state.password, password2: this.state.password2}
     axios.post('https://mysterious-brushlands-82205.herokuapp.com/api/registration/', userCreds)
       .then(response => {
-        console.log(response)
         window.localStorage.setItem('token', response.data.key)
         this.props.toggle()
       })
