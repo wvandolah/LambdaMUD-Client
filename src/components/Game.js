@@ -49,7 +49,7 @@ class Game extends Component {
     const headers = { headers: { Authorization: `Token ${token}` }}
     try{
       if(this.state.input.length === 1){
-        const direct = {direction: this.state.input}
+        const direct = {direction: this.state.input.toLowerCase()}
         const response = await axios.post(process.env.REACT_APP_BACKEND + 'adv/move/', direct, headers)
         this.setState({ 
           gametext: [...this.state.gametext, `${response.data.error_msg} ${response.data.title}: ${response.data.description}`, `players in room: ${response.data.players.join(' ')}`],
