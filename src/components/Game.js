@@ -79,17 +79,17 @@ class Game extends Component {
       <>
         <Container text>
           <Header as='h2'>This is a game</Header>
-            <TransitionGroup>
-              {this.state.gametext.map((lineOfText, index) => {
-                return (
-                  <CSSTransition key={index} classNames="fade" timeout={500}>
-                    <ul>
+            <ul>
+              <TransitionGroup>  
+                {this.state.gametext.map((lineOfText, index) => {
+                  return (
+                    <CSSTransition key={index} classNames="fade" timeout={500}>
                       <li>{lineOfText}</li>
-                    </ul>
-                  </CSSTransition>
-                )
-              })}
-            </TransitionGroup>
+                    </CSSTransition>
+                  )
+                })}
+              </TransitionGroup>
+            </ul>
             <div style={{ float:"left", clear: "both" }}
               ref={(el) => { this.messagesEnd = el; }}>
             </div>
